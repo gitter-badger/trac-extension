@@ -14,7 +14,7 @@ from django.db import models
 
 class Attachment(models.Model):
     type = models.TextField(blank=True, null=True)
-    id = models.TextField(blank=True, null=True)
+    id = models.TextField(blank=True, primary_key=True)
     filename = models.TextField(blank=True, null=True)
     size = models.IntegerField(blank=True, null=True)
     time = models.IntegerField(blank=True, null=True)
@@ -41,7 +41,7 @@ class AuthCookie(models.Model):
 
 
 class Cache(models.Model):
-    id = models.IntegerField(primary_key=True, blank=True, null=True)  # AutoField?
+    id = models.IntegerField(primary_key=True, blank=True)  # AutoField?
     generation = models.IntegerField(blank=True, null=True)
     key = models.TextField(blank=True, null=True)
 
@@ -51,7 +51,7 @@ class Cache(models.Model):
 
 
 class Component(models.Model):
-    name = models.TextField(primary_key=True, blank=True, null=True)
+    name = models.TextField(blank=True, null=True)
     owner = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
@@ -83,7 +83,7 @@ class Enum(models.Model):
 
 
 class Milestone(models.Model):
-    name = models.TextField(primary_key=True, blank=True, null=True)
+    name = models.TextField(primary_key=True, blank=True)
     due = models.IntegerField(blank=True, null=True)
     completed = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
@@ -119,7 +119,7 @@ class Permission(models.Model):
 
 
 class Report(models.Model):
-    id = models.IntegerField(primary_key=True, blank=True, null=True)  # AutoField?
+    id = models.IntegerField(blank=True, primary_key=True)  # AutoField?
     author = models.TextField(blank=True, null=True)
     title = models.TextField(blank=True, null=True)
     query = models.TextField(blank=True, null=True)
@@ -131,7 +131,7 @@ class Report(models.Model):
 
 
 class Repository(models.Model):
-    id = models.IntegerField(blank=True, null=True)
+    id = models.IntegerField(blank=True, primary_key=True)
     name = models.TextField(blank=True, null=True)
     value = models.TextField(blank=True, null=True)
 
@@ -178,7 +178,7 @@ class SessionAttribute(models.Model):
 
 
 class System(models.Model):
-    name = models.TextField(primary_key=True, blank=True, null=True)
+    name = models.TextField(primary_key=True, blank=True)
     value = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -187,7 +187,7 @@ class System(models.Model):
 
 
 class Ticket(models.Model):
-    id = models.IntegerField(primary_key=True, blank=True, null=True)  # AutoField?
+    id = models.IntegerField(primary_key=True, blank=True)  # AutoField?
     type = models.TextField(blank=True, null=True)
     time = models.IntegerField(blank=True, null=True)
     changetime = models.IntegerField(blank=True, null=True)
@@ -204,6 +204,9 @@ class Ticket(models.Model):
     summary = models.TextField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     keywords = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return "%s" % self.summary
 
     class Meta:
         managed = False
@@ -236,7 +239,7 @@ class TicketCustom(models.Model):
 
 
 class Version(models.Model):
-    name = models.TextField(primary_key=True, blank=True, null=True)
+    name = models.TextField(primary_key=True, blank=True)
     time = models.IntegerField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 
