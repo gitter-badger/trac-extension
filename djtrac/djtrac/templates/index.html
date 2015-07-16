@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+  {% block body %}
+    <h1 class="page-header">Отчеты trac</h1>
+        <form>
+            <label>Период:</label>{{ form.milestone }}
+            <input type="submit" value="Показать">
+        </form>
+      {% if tickets|length %}
+          <div class="bs-table">
+          <table class="table table-condensed table-bordered" >
+
+              <caption>Тикеты по выбранному периоду</caption>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Название</th>
+{#                  <th>Описание</th>#}
+{#                  <th>Кто заказывал</th>#}
+{#                  <th>Контролирующее(принимающее) лицо</th>#}
+{#                  <th>Лица которым нужно показать для тестирования</th>#}
+{#                  <th>Направление (проф, лмк, КК или ЦРМ)</th>#}
+                  <th>Type</th>
+                  <th>time</th>
+                  <th>changetime</th>
+                  <th>severity</th>
+                  <th>priority</th>
+                  <th>owner</th>
+                  <th>cc</th>
+                  <th>reporter</th>
+                  <th>version</th>
+                  <th>milestone</th>
+                  <th>status</th>
+                  <th>resolution</th>
+                  <th>keywords</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ ticket.summary }}</td>
+{#                        <td>{{ ticket.description }}</td>#}
+                        <td>{{ ticket.type }}</td>
+                        <td>{{ ticket.time }}</td>
+                        <td>{{ ticket.changetime }}</td>
+                        <td>{{ ticket.severity }}</td>
+                        <td>{{ ticket.priority }}</td>
+                        <td>{{ ticket.owner }}</td>
+                        <td>{{ ticket.cc }}</td>
+                        <td>{{ ticket.reporter }}</td>
+
+                        <td>{{ ticket.version }}</td>
+                        <td>{{ ticket.milestone }}</td>
+                        <td>{{ ticket.status }}</td>
+                        <td>{{ ticket.resolution }}</td>
+                        <td>{{ ticket.keywords }}</td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+          </div>
+      {% endif %}
+
+  {% endblock body %}
