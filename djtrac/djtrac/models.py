@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -91,6 +92,9 @@ class Milestone(models.Model):
     class Meta:
         managed = False
         db_table = 'milestone'
+
+    def __unicode__(self):
+        return "%s due: %s; completed: %s " % (self.name,self.due, self.completed)
 
 
 class NodeChange(models.Model):
@@ -189,8 +193,9 @@ class System(models.Model):
 class Ticket(models.Model):
     id = models.IntegerField(primary_key=True, blank=True)  # AutoField?
     type = models.TextField(blank=True, null=True)
+    # Измеряется как timestamp в микросекундах, для перевода в datetime использовать datetime.datetime.fromtimestamp(t*0.000001)
     time = models.IntegerField(blank=True, null=True)
-    changetime = models.IntegerField(blank=True, null=True)
+    changetime = models.IntegerField(verbose_name=u"Время последнего изменения", blank=True, null=True,)
     component = models.TextField(blank=True, null=True)
     severity = models.TextField(blank=True, null=True)
     priority = models.TextField(blank=True, null=True)
